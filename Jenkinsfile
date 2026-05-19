@@ -12,19 +12,19 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'npm install'
+                sh 'npm install'
             }
         }
 
         stage('Build Project') {
             steps {
-                bat 'npm run build'
+                sh 'npm run build'
             }
         }
 
         stage('Success') {
             steps {
-                echo 'CI/CD Pipeline executed successfully'
+                echo 'CI/CD Pipeline executed successfully 🚀'
             }
         }
     }
