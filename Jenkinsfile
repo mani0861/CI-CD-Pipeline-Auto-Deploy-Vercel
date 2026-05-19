@@ -1,29 +1,30 @@
 pipeline {
     agent any
 
-    environment {
-        VERCEL_TOKEN = credentials('vercel_token')
-    }
-
     stages {
-        stage('Install') {
+
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/mani0861/CI-CD-Pipeline-Auto-Deploy-Vercel.git'
+            }
+        }
+
+        stage('Install Dependencies') {
             steps {
                 bat 'npm install'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Skipping tests - no test script found'
-            }
-        }
-        stage('Build') {
+
+        stage('Build Project') {
             steps {
                 bat 'npm run build'
             }
         }
-        stage('Deploy') {
+
+        stage('Success') {
             steps {
-                bat 'npx vercel --prod --yes --token=%VERCEL_TOKEN%'
+                echo 'CI/CD Pipeline executed successfully'
             }
         }
     }
